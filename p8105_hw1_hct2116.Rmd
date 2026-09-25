@@ -10,8 +10,13 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## Problem 1
-```{r cars}
-summary(cars)
+```{r}
+
 ```
 
+
 ## Problem 2
+```{r}
+
+```
+
