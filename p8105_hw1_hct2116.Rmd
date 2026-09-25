@@ -7,11 +7,22 @@ output: github_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+
+library(ggplot2)
+
+data("penguins", package = "palmerpenguins")
 ```
 
-## Problem 1
-```{r}
 
+## Problem 1
+The `penguins` dataset contains measurements of penguins from three species: Adelie, Chinstrap, and Gentoo. Important variables include `species`, `island`, `bill_length_mm`, `bill_depth_mm`, `flipper_length_mm`, `body_mass_g`, `sex`, and `year`. This dataset contains `r nrow(penguins)` rows and `r ncol(penguins)` columns. The mean flipper length is `r round(mean(penguins$flipper_length_mm, na.rm = TRUE), 3)` mm.
+
+```{r}
+p <- ggplot(penguins, aes(x = bill_length_mm, y = flipper_length_mm, colour = species)) + geom_point()
+
+p
+
+ggsave("penguins_scatterplot.png", plot = p)
 ```
 
 
@@ -19,4 +30,3 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r}
 
 ```
-
