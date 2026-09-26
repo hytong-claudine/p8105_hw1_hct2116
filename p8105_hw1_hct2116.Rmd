@@ -9,6 +9,7 @@ output: github_document
 knitr::opts_chunk$set(echo = TRUE)
 
 library(ggplot2)
+library(dplyr)
 
 data("penguins", package = "palmerpenguins")
 ```
@@ -28,5 +29,31 @@ ggsave("penguins_scatterplot.png", plot = p)
 
 ## Problem 2
 ```{r}
+numeric <- rnorm(10)
+
+df <- data.frame(
+  numeric = numeric,
+  logical = numeric > 0,
+  character = letters[1:10],
+  factor = factor(sample(c("A","B","C"), 10, replace = TRUE))
+)
+
+df
+
+mean(pull(df, numeric))
+mean(pull(df, logical))
+mean(pull(df, character))
+mean(pull(df, factor))
+```
+When taking the means, the means of numeric and logical variables could be calculated, but not for the character and factor variables. 
+
+```{r, results = 'hide'}
+as.numeric(pull(df, logical))
+as.numeric(pull(df, character))
+as.numeric(pull(df, factor))
 
 ```
+Applying `as.numeric()` to the logical variable converts `TRUE` to 1 and `FALSE` to 0.   
+Applying `as.numeric()` to the character variable leads to `NA` values because the character values can't be converted into numbers.  
+Applying `as.numeric()` to the factor variable converts the factor to their level integer codes rather than converting the labels themselves into numbers.  
+It helps explain the previous output of taking the mean. It works for logical values because they are treated as numbers (0 and 1), while character and factor variables do not directly provide numeric values when calculating a mean.
